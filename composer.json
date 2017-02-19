@@ -9,15 +9,17 @@
         "composer/installers": "dev-master",
 
         "nwidart/laravel-modules": "1.14.*",
-        "filp/whoops": "2.*",
+        "filp/whoops": "^2.1",
 
         "cysha/theme-default": "dev-master",
         "cysha/theme-default-admin": "dev-master",
         "cysha/theme-adminlte": "dev-master",
+        "xlink/pxcms-cysha": "dev-master",
 
         "cysha/module-core": "dev-master",
         "cysha/module-auth": "dev-master",
         "cysha/module-admin": "dev-master"
+
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -34,7 +36,7 @@
         ],
         "psr-4": {
             "Cms\\": "app/",
-            "Cms\\Modules\\": "app/Modules"
+            "Modules\\": "Modules"
         },
         "files": [
             "app/Helpers/Debug.php"

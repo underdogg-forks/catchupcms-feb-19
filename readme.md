@@ -40,7 +40,7 @@ npm install -g bower # run this if you dont have bower installed
 bower install
 ```
 
-Providing none of the above threw any errors, that should be all the dependancies installed.
+Providing none of the above threw any errors, that should be all the dependencies installed.
 
 *5.*
 (optional) Next thing to do is configure the environment,

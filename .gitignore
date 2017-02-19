@@ -1,10 +1,11 @@
 /vendor
 /node_modules
 .env
+/.idea
 storage/debugbar/
-app/Modules
+
 config/cms.*.php
-themes/
+
 public/themes/*/
 public/modules/*/
 database/migrations/
