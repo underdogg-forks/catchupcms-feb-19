@@ -1,6 +1,6 @@
 <?php
 
-namespace Cms\Modules\Relations\Providers;
+namespace Modules\Relations\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

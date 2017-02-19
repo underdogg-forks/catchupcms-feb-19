@@ -1,6 +1,6 @@
 <?php
 
-namespace Cms\Providers;
+namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Blade;
@@ -25,32 +25,30 @@ class AppServiceProvider extends ServiceProvider
         });
 
 
+        Blade::directive('csrf', function ($namespace) {
+            $namespace = trim(str_replace('\'', '', $namespace)) ?: 'Laravel';
+            $csrf = csrf_token();
 
-Blade::directive('csrf', function ($namespace) {
-    $namespace = trim(str_replace('\'', '', $namespace)) ?: 'Laravel';
-    $csrf      = csrf_token();
+            $metaTag = "<meta name=\"csrf-token\" content=\"{$csrf}\">";
+            $scriptTag = "<script>window.{$namespace} = {'csrfToken': '{$csrf}'}</script>";
 
-    $metaTag   = "<meta name=\"csrf-token\" content=\"{$csrf}\">";
-    $scriptTag = "<script>window.{$namespace} = {'csrfToken': '{$csrf}'}</script>";
-
-    return $metaTag . $scriptTag;
-});
-
-
-Blade::directive('js', function ($arguments) {
-            list($var, $data) = explode(',', str_replace(['(', ')', ' ', "'"], '', $arguments));
-            return  "<?php echo \"<script>window['{$var}']= {$data};</script>\" ?>";
+            return $metaTag . $scriptTag;
         });
 
 
-Blade::directive('truncate', function ($expression) {
-           
-           list($string, $length) = explode(',', str_replace(['(', ')', ' '], '', $expression));
-           
-           return "<?php echo e(strlen({$string}) > {$length} ? substr({$string},0,{$length}).'...' : {$string}); ?>";
+        Blade::directive('js', function ($arguments) {
+            list($var, $data) = explode(',', str_replace(['(', ')', ' ', "'"], '', $arguments));
+            return "<?php echo \"<script>window['{$var}']= {$data};</script>\" ?>";
+        });
 
-       });
 
+        Blade::directive('truncate', function ($expression) {
+
+            list($string, $length) = explode(',', str_replace(['(', ')', ' '], '', $expression));
+
+            return "<?php echo e(strlen({$string}) > {$length} ? substr({$string},0,{$length}).'...' : {$string}); ?>";
+
+        });
 
 
         /*
@@ -92,11 +90,6 @@ Blade::directive('truncate', function ($expression) {
         Blade::directive('varDump', function ($expression) {
             return "<?php var_dump(with{$expression}); ?>";
         });
-
-
-
-
-
     }
 
     /**
@@ -110,7 +103,7 @@ Blade::directive('truncate', function ($expression) {
     {
         $this->app->bind(
             'Illuminate\Contracts\Auth\Registrar',
-            'Cms\Services\Registrar'
+            'App\Services\Registrar'
         );
     }
 }

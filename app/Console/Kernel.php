@@ -1,4 +1,5 @@
-<?php namespace Cms\Console;
+<?php
+namespace App\Console;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
@@ -32,7 +33,7 @@ class Kernel extends ConsoleKernel
                 return;
             }
             
-            $class = sprintf('\Cms\Modules\%s\Console\Kernel', ucwords($module));
+            $class = sprintf('\Modules\%s\Console\Kernel', ucwords($module));
             if (!class_exists($class)) {
                 continue;
             }

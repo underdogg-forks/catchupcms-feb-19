@@ -14,7 +14,7 @@ class Debug
      * @author      xLink
      *
      * @param variable $var
-     * @param string   $info
+     * @param string $info
      *
      * @return string
      */
@@ -56,13 +56,13 @@ class Debug
 
         // setup a little prettyness
         $id = substr(md5(microtime()), 0, 6);
-        $return .= sprintf('<div class="debug-dump" style="overflow: auto; margin: 0 0 10px 0; background: white; color: black; font-family: Verdana; border: 1px solid #cccccc; padding: 5px; font-size: 10px; line-height: 12px; display: block; max-width: 1000px;text-align: left;"><div><div class="header" style="background-color: '.$color.'; color: white; padding: 3px 5px; font-size: 12px; margin: 0 0 5px;"></div>DEBUG! (<strong>%s : %s</strong>)', $filePath, $code_line);
+        $return .= sprintf('<div class="debug-dump" style="overflow: auto; margin: 0 0 10px 0; background: white; color: black; font-family: Verdana; border: 1px solid #cccccc; padding: 5px; font-size: 10px; line-height: 12px; display: block; max-width: 1000px;text-align: left;"><div><div class="header" style="background-color: ' . $color . '; color: white; padding: 3px 5px; font-size: 12px; margin: 0 0 5px;"></div>DEBUG! (<strong>%s : %s</strong>)', $filePath, $code_line);
         if ($info != false) {
-            $return .= ' | <strong style="color: red;">'.$info.':</strong>';
+            $return .= ' | <strong style="color: red;">' . $info . ':</strong>';
         }
         $return .= '</div>';
 
-        $return .= $debugVar.'</div>';
+        $return .= $debugVar . '</div>';
 
         // BOOM! :D
         return $return;
@@ -74,13 +74,5 @@ class Debug
             return;
         }
         \Debugbar::$type($var);
-    }
-
-    public static function timer($name, $message)
-    {
-        if (!class_exists('Debugbar') || app()->environment() === 'testing') {
-            return;
-        }
-        \Debugbar::{$message === null ? 'stopMeasure' : 'startMeasure'}($name, $message);
     }
 }

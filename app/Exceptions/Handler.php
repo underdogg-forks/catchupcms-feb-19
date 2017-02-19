@@ -1,10 +1,10 @@
 <?php
 
-namespace Cms\Exceptions;
+namespace App\Exceptions;
 
-use Cms\Modules\Pages\Http\Controllers\Frontend\PagesController;
-use Cms\Modules\Core\Exceptions\NotInstalledException;
-use Cms\Modules\Pages\Models\Page;
+use Modules\Pages\Http\Controllers\Frontend\PagesController;
+use Modules\Core\Exceptions\NotInstalledException;
+use Modules\Pages\Models\Page;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -47,17 +47,17 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Exception               $e
+     * @param \Exception $e
      *
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)
     {
-        if ($e instanceof \Cms\Modules\Core\Exceptions\NotInstalledException) {
+        if ($e instanceof \Modules\Core\Exceptions\NotInstalledException) {
             return $this->renderNotInstalled($e);
         }
 
-        if ($e instanceof \Cms\Modules\Core\Exceptions\InMaintenanceException) {
+        if ($e instanceof \Modules\Core\Exceptions\InMaintenanceException) {
             return $this->renderInMaintenance($e);
         }
 
@@ -67,13 +67,13 @@ class Handler extends ExceptionHandler
         }
 
         if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException
-                && app('modules')->has('Pages')) {
+            && app('modules')->has('Pages')
+        ) {
             $page = Page::where('slug', $request->path())->first();
             if ($page) {
                 return app(PagesController::class)->getPage($page);
             }
         }
-
 
 
         if ($e instanceof \Illuminate\Validation\ValidationException) {
@@ -97,7 +97,7 @@ class Handler extends ExceptionHandler
     /**
      * Create a Symfony response for the given exception.
      *
-     * @param  \Exception  $e
+     * @param  \Exception $e
      * @return mixed
      */
     protected function convertExceptionToResponse(Exception $e)
@@ -146,7 +146,7 @@ class Handler extends ExceptionHandler
                     $userMessage = 'Untrapped Error:';
                     break;
             }
-            $userMessage = $userMessage.'<br>'.$e->getMessage();
+            $userMessage = $userMessage . '<br>' . $e->getMessage();
         } else {
             // be apologetic but never specific ;)
             $userMessage = 'We are currently experiencing a site wide issue. We are sorry for the inconvenience!';
@@ -222,11 +222,11 @@ class Handler extends ExceptionHandler
         if ($request->ajax()) {
             $data = [
                 'message' => $message,
-                'status_code' => (int) $code,
+                'status_code' => (int)$code,
             ];
 
             if (Auth::check() && Auth::user()->hasRole('Admin')) {
-                $data['file'] = $e->getFile().':'.$e->getLine();
+                $data['file'] = $e->getFile() . ':' . $e->getLine();
                 $data['data'] = $request->all();
             }
 
@@ -235,7 +235,7 @@ class Handler extends ExceptionHandler
             $objTheme = Theme::uses(getCurrentTheme())->layout('1-column');
 
             return $objTheme
-                ->scope('partials.theme.errors.'.($code === 500 ? 'whoops' : $code), compact('code', 'message'))
+                ->scope('partials.theme.errors.' . ($code === 500 ? 'whoops' : $code), compact('code', 'message'))
                 ->render(($code ?: 500));
         }
     }
@@ -243,7 +243,7 @@ class Handler extends ExceptionHandler
     /**
      * Convert an authentication exception into an unauthenticated response.
      *
-     * @param \Illuminate\Http\Request                 $request
+     * @param \Illuminate\Http\Request $request
      * @param \Illuminate\Auth\AuthenticationException $exception
      *
      * @return \Illuminate\Http\Response

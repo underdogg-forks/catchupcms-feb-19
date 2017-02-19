@@ -166,16 +166,16 @@ return [
         /*
          * Application Service Providers...
          */
-        Cms\Providers\AppServiceProvider::class,
-        // Cms\Providers\AuthServiceProvider::class,
-        // Cms\Providers\BroadcastServiceProvider::class,
-        Cms\Providers\EventServiceProvider::class,
-        // Cms\Providers\RouteServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        // App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        // App\Providers\RouteServiceProvider::class,
 
         /*
          * CMS Package Service Providers
          */
-        \Cms\Modules\Core\Providers\CmsModulesProvider::class,
+        \Modules\Core\Providers\CmsModulesProvider::class,
     ],
 
     /*

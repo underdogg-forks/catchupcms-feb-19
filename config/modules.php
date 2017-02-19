@@ -10,7 +10,7 @@ return [
     | Default module namespace.
     |
     */
-    'namespace' => 'Cms\Modules',
+    'namespace' => 'Modules',
 
     /*
     |--------------------------------------------------------------------------
@@ -60,7 +60,7 @@ return [
         |
         */
 
-        'modules' => app_path('Modules'),
+        'modules' => base_path('Modules'),
         /*
         |--------------------------------------------------------------------------
         | Modules assets path

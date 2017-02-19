@@ -1,6 +1,6 @@
 <?php
 
-namespace Cms\Providers;
+namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;
@@ -18,7 +18,7 @@ class BroadcastServiceProvider extends ServiceProvider
          * Authenticate the user's personal channel...
          */
         Broadcast::channel('Cms.User.*', function ($user, $userId) {
-            return (int) $user->id === (int) $userId;
+            return (int)$user->id === (int)$userId;
         });
     }
 }
